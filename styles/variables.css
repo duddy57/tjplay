@@ -1,0 +1,52 @@
+@theme {
+  /* Core palette: warm cream, forest black, and a focused green accent. */
+  --color-background: #f4f3ed;
+  --color-text: #021b0a;
+  --color-ink: #f4f3ed;
+  --color-ink-2: #f0efe8;
+  --color-ink-3: #e8e8df;
+  --color-line: rgb(2 27 10 / 0.14);
+  --color-line-strong: rgb(2 27 10 / 0.28);
+  --color-bone: #021b0a;
+  --color-mute: #34523f;
+  --color-dim: #53705c;
+  --color-signal: #73d978;
+  --color-signal-mid: #0f9648;
+  --color-signal-soft: rgb(115 217 120 / 0.18);
+
+  --font-display: var(--font-display-face), sans-serif;
+  --font-body: var(--font-body-face), sans-serif;
+  --font-mono: var(--font-mono-face), monospace;
+
+  --text-hero: clamp(3.25rem, 11.4vw, 15rem);
+  --text-hero--line-height: 0.9;
+  --text-hero--letter-spacing: -0.045em;
+  --text-display: clamp(2.75rem, 6.4vw, 7.5rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.04em;
+  --text-title: clamp(2.25rem, 4.4vw, 4.75rem);
+  --text-title--line-height: 0.98;
+  --text-title--letter-spacing: -0.035em;
+  --text-subtitle: clamp(1.5rem, 2.2vw, 2.25rem);
+  --text-subtitle--line-height: 1.08;
+  --text-subtitle--letter-spacing: -0.02em;
+  --text-lead: clamp(1.0625rem, 1.2vw, 1.25rem);
+  --text-lead--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.06em;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
+
+  --breakpoint-xs: 30rem;
+}
+
+/* The accent is also supplied by the site config for legacy pages. Keep this
+   token authoritative so the palette cannot fall back to the old orange. */
+:root {
+  --color-signal: #73d978 !important;
+  --color-signal-soft: rgb(115 217 120 / 0.18) !important;
+}

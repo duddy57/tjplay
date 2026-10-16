@@ -1,0 +1,12 @@
+---
+import { iptvBenefits } from '@/data/iptv';
+---
+
+<section class="border-y border-line py-16 md:py-24" aria-labelledby="beneficios-title">
+  <div class="shell">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-5 sm:mb-12 sm:gap-6"><h2 id="beneficios-title" class="max-w-[10ch] font-display text-title font-bold leading-[0.92] text-bone">Feito para facilitar.</h2><p class="max-w-[32ch] text-mute">Menos procura, mais tempo para aproveitar o que você gosta.</p></div>
+    <div class="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
+      {iptvBenefits.map((benefit) => <article class="bg-ink p-5 sm:p-6 md:p-8"><span class="font-mono text-label text-signal-mid">{benefit.number}</span><h3 class="mt-12 font-display text-2xl font-bold text-bone sm:mt-20">{benefit.title}</h3><p class="mt-3 text-mute">{benefit.body}</p></article>)}
+    </div>
+  </div>
+</section>

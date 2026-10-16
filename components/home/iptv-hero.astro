@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@/components/shared/ui/button.astro';
+import mockup from '@/assets/images/TjplayMoockup.png';
+import heroBackground from '@/assets/images/releases/bg-banner.png';
+import { iptvHero, iptvWhatsAppHref } from '@/data/iptv';
+---
+
+<section
+  class="relative overflow-hidden pt-36 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32"
+  aria-labelledby="iptv-hero-title">
+  <div class="iptv-hero-background" aria-hidden="true">
+    <Image src={heroBackground} alt="" class="iptv-hero-background-image" loading="eager" />
+    <!-- <div class="iptv-hero-background-overlay"></div> -->
+  </div>
+  <div class="shell relative z-10 grid items-end gap-14 lg:grid-cols-12">
+    <div class="lg:col-span-8" data-intro>
+      <p class="font-mono text-label text-signal-mid uppercase tracking-[0.14em]">{iptvHero.eyebrow}</p>
+      <h1
+        id="iptv-hero-title"
+        class="mt-5 max-w-[9ch] whitespace-pre-line font-display text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] font-extrabold tracking-[-0.07em] text-[var(--color-background)]">
+        {iptvHero.title}
+      </h1>
+      <p class="iptv-hero-copy mt-8 max-w-[42ch] text-lead text-[color-mix(in_srgb,var(--color-background)_82%,transparent)]">
+        {iptvHero.body}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <Button label={iptvHero.primaryCta} href={iptvWhatsAppHref} target="_blank" rel="noopener noreferrer" />
+        <a
+          class="iptv-hero-secondary rounded-full border border-[rgb(244_243_237/0.55)] px-5 py-3.5 text-sm font-medium text-[var(--color-background)] transition-colors hover:border-signal-mid hover:text-signal-mid"
+          href={iptvWhatsAppHref}
+          target="_blank"
+          rel="noopener noreferrer">
+          {iptvHero.secondaryCta}
+        </a>
+      </div>
+    </div>
+    <div class="relative min-h-64 sm:min-h-72 lg:col-span-3 lg:min-h-[30rem]" data-reveal>
+      <div class="iptv-hero-mockup">
+        <Image
+          src={mockup}
+          alt="Interface da TjIptv exibida em um laptop"
+          class="size-full object-contain object-right"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .iptv-hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: var(--color-ink-2);
+  }
+
+  :global(.iptv-hero-background-image) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: blur(3px);
+    transform: scale(1.04);
+  }
+
+  .iptv-hero-background-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.56) 45%, rgb(0 0 0 / 0.18) 100%),
+      linear-gradient(180deg, rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.55));
+  }
+
+  .iptv-hero-copy {
+    text-shadow: 0 0.12rem 0.8rem rgb(0 0 0 / 0.55);
+  }
+
+  .iptv-hero-secondary {
+    text-shadow: 0 0.08rem 0.55rem rgb(0 0 0 / 0.42);
+    box-shadow: 0 0.75rem 1.75rem -1.25rem rgb(0 0 0 / 0.72);
+  }
+
+  .iptv-hero-mockup {
+    position: relative;
+    width: 135%;
+    height: 18rem;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    right: -5%;
+  }
+
+  @media (width < 30rem) {
+    .iptv-hero-mockup {
+      width: 145%;
+      right: -14%;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .iptv-hero-mockup {
+      position: absolute;
+      top: -2rem;
+      right: -62%;
+      width: min(58vw, 56rem);
+      height: 34rem;
+      margin: 0;
+    }
+  }
+</style>

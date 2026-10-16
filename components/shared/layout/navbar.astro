@@ -1,0 +1,174 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@/components/shared/ui/button.astro';
+import logo from '@/assets/images/logo.png';
+import { iptvBrand, iptvWhatsAppHref } from '@/data/iptv';
+---
+
+<header class="fixed inset-x-0 top-0 z-[70]" data-nav>
+  <div class="shell flex min-h-20 flex-wrap items-center justify-between gap-3 py-3 sm:gap-4">
+    <a
+      href="/"
+      class="flex shrink-0 items-center rounded-2xl border border-line bg-ink/85 px-3 py-2 shadow-[0_12px_30px_-18px_rgb(2_27_10/0.7)] backdrop-blur-xl"
+      aria-label={`${iptvBrand.name} início`}>
+      <Image src={logo} alt={iptvBrand.name} class="h-8 w-auto max-w-[7.5rem] object-contain md:h-9 md:max-w-none" loading="eager" />
+    </a>
+    <nav aria-label="Navegação principal" class="order-3 hidden w-full overflow-x-auto md:order-none md:block md:w-auto">
+      <ul class="flex w-max items-center gap-1 rounded-full border border-line bg-ink/85 p-1 shadow-[0_12px_30px_-18px_rgb(2_27_10/0.7)] backdrop-blur-xl">
+        <li>
+          <a
+            href="#catalogo"
+            class="block rounded-full px-3 py-2 text-xs font-medium text-mute transition-colors hover:bg-ink-3 hover:text-bone sm:px-4 sm:text-sm">
+            Catálogo
+          </a>
+        </li>
+        <li>
+          <a
+            href="#planos"
+            class="block rounded-full px-3 py-2 text-xs font-medium text-mute transition-colors hover:bg-ink-3 hover:text-bone sm:px-4 sm:text-sm">
+            Planos
+          </a>
+        </li>
+        <li>
+          <a
+            href="#duvidas"
+            class="block rounded-full px-3 py-2 text-xs font-medium text-mute transition-colors hover:bg-ink-3 hover:text-bone sm:px-4 sm:text-sm">
+            Dúvidas
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="flex items-center gap-2">
+      <Button
+        label="WhatsApp"
+        href={iptvWhatsAppHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden h-10 max-xs:px-3 md:inline-flex"
+      />
+      <button
+        type="button"
+        class="grid size-11 place-items-center rounded-full border border-line bg-ink/85 text-bone shadow-[0_12px_30px_-18px_rgb(2_27_10/0.7)] backdrop-blur-xl md:hidden"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav-sheet"
+        data-mobile-nav-toggle>
+        <span class="relative block h-3.5 w-5" aria-hidden="true">
+          <span class="absolute inset-x-0 top-0 h-px bg-current transition-transform duration-300" data-menu-line></span>
+          <span class="absolute inset-x-0 bottom-0 h-px bg-current transition-transform duration-300" data-menu-line></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" data-mobile-nav aria-hidden="true">
+    <button class="mobile-nav-backdrop" type="button" aria-label="Fechar menu" data-mobile-nav-backdrop></button>
+    <aside id="mobile-nav-sheet" class="mobile-nav-sheet" aria-label="Navegação móvel">
+      <div class="flex items-center justify-between border-b border-line pb-5">
+        <span class="font-mono text-label text-signal-mid uppercase">Navegação</span>
+        <button type="button" class="grid size-10 place-items-center rounded-full border border-line-strong text-bone" aria-label="Fechar menu" data-mobile-nav-close>×</button>
+      </div>
+      <nav class="mt-8" aria-label="Seções da página">
+        <ul class="flex flex-col gap-2">
+          <li><a class="mobile-nav-link" href="#catalogo" data-mobile-nav-link>Catálogo <span>↗</span></a></li>
+          <li><a class="mobile-nav-link" href="#planos" data-mobile-nav-link>Planos <span>↗</span></a></li>
+          <li><a class="mobile-nav-link" href="#duvidas" data-mobile-nav-link>Dúvidas <span>↗</span></a></li>
+          <li><a class="mobile-nav-link" href="#contato" data-mobile-nav-link>Atendimento <span>↗</span></a></li>
+        </ul>
+      </nav>
+      <a class="mt-10 flex min-h-12 items-center justify-center rounded-full bg-signal px-5 text-sm font-medium text-ink" href={iptvWhatsAppHref} target="_blank" rel="noopener noreferrer" data-mobile-nav-link>
+        Falar pelo WhatsApp ↗
+      </a>
+    </aside>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-nav-toggle]');
+  const mobileNav = document.querySelector<HTMLElement>('[data-mobile-nav]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-mobile-nav-close]');
+  const backdrop = document.querySelector<HTMLButtonElement>('[data-mobile-nav-backdrop]');
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-mobile-nav-link]');
+
+  if (toggle && mobileNav && closeButton && backdrop) {
+    const setOpen = (open: boolean) => {
+      mobileNav.toggleAttribute('data-open', open);
+      mobileNav.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('overflow-hidden', open);
+      if (open) closeButton.focus();
+      else toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => setOpen(true));
+    closeButton.addEventListener('click', () => setOpen(false));
+    backdrop.addEventListener('click', () => setOpen(false));
+    links.forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileNav.hasAttribute('data-open')) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-nav[data-open] {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-nav-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: rgb(2 27 10 / 0.38);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .mobile-nav-sheet {
+    position: absolute;
+    inset-block: 0;
+    right: 0;
+    width: min(22rem, 88vw);
+    padding: 1.25rem;
+    color: var(--color-text);
+    background: var(--color-background);
+    box-shadow: -1.5rem 0 4rem -2rem rgb(2 27 10 / 0.5);
+    transform: translateX(100%);
+    transition: transform 350ms var(--ease-out-expo);
+  }
+
+  .mobile-nav[data-open] .mobile-nav-backdrop { opacity: 1; }
+  .mobile-nav[data-open] .mobile-nav-sheet { transform: translateX(0); }
+
+  .mobile-nav-link {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-line);
+    padding-block: 0.75rem;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  @media (width >= 48rem) {
+    .mobile-nav { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav-backdrop,
+    .mobile-nav-sheet { transition: none; }
+  }
+</style>

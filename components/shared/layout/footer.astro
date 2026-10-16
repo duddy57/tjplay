@@ -1,0 +1,18 @@
+---
+import { iptvBrand, iptvWhatsAppHref } from '@/data/iptv';
+---
+
+<footer class="border-t border-line bg-ink-2 py-8 sm:py-10 md:py-14">
+  <div class="shell flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="font-display text-3xl font-extrabold tracking-[-0.06em] text-bone">{iptvBrand.name}</p>
+      <p class="mt-2 max-w-[28ch] text-sm text-mute">Entretenimento do seu jeito, em um só serviço.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+      <a href="#catalogo" class="text-mute transition-colors hover:text-bone">Catálogo</a>
+      <a href="#planos" class="text-mute transition-colors hover:text-bone">Planos</a>
+      <a href="#contato" class="text-mute transition-colors hover:text-bone">Atendimento</a>
+      <a href={iptvWhatsAppHref} target="_blank" rel="noopener noreferrer" class="font-medium text-signal-mid transition-colors hover:text-bone">WhatsApp ↗</a>
+    </div>
+  </div>
+</footer>
