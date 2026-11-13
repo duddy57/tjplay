@@ -3,7 +3,7 @@ import type { SiteConfig } from '@/interface';
 export const site: SiteConfig = {
   name: 'tjiptv',
   legalName: 'tjplay-iptv',
-  url: 'https://thiago.sperium.net',
+  url: 'https://tjplay.sperium.net',
   title: 'TJ IPTV — Entretenimento do seu jeito',
   description: 'Um catálogo amplo de entretenimento em um só serviço.',
   email: '',

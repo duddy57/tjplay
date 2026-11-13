@@ -5,6 +5,8 @@ import { site } from './data/site';
 export default defineConfig({
   srcDir: './',
   site: site.url,
+  output: 'static',
+  base: '/',
   vite: { plugins: [tailwindcss()], optimizeDeps: { include: ['number-flow'] } },
   image: { responsiveStyles: false },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
