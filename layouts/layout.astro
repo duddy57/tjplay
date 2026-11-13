@@ -25,7 +25,7 @@ const ogImage = new URL(image ?? '/images/og-image.jpg', site.url);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f3ed" />
+    <meta name="theme-color" content="#021b0a" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -45,6 +45,14 @@ const ogImage = new URL(image ?? '/images/og-image.jpg', site.url);
     <meta name="twitter:image" content={ogImage} />
     <meta name="generator" content={Astro.generator} />
     <style is:inline set:html={accentVars}></style>
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') document.documentElement.dataset.theme = 'light';
+      } catch {
+        // Keep the dark default when storage is unavailable.
+      }
+    </script>
     <Font cssVariable="--font-display-face" preload />
     <Font cssVariable="--font-body-face" preload />
     <Font cssVariable="--font-mono-face" />

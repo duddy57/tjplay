@@ -1,18 +1,23 @@
 @theme {
-  /* Core palette: warm cream, forest black, and a focused green accent. */
-  --color-background: #f4f3ed;
-  --color-text: #021b0a;
-  --color-ink: #f4f3ed;
-  --color-ink-2: #f0efe8;
-  --color-ink-3: #e8e8df;
-  --color-line: rgb(2 27 10 / 0.14);
-  --color-line-strong: rgb(2 27 10 / 0.28);
-  --color-bone: #021b0a;
-  --color-mute: #34523f;
-  --color-dim: #53705c;
+  /* Dark is the intentional default; light is an opt-in theme. */
+  --color-background: #021b0a;
+  --color-text: #f4f3ed;
+  --color-ink: #021b0a;
+  --color-ink-2: #0b2814;
+  --color-ink-3: #12351d;
+  --color-line: rgb(244 243 237 / 0.16);
+  --color-line-strong: rgb(244 243 237 / 0.3);
+  --color-bone: #f4f3ed;
+  --color-mute: #b2c3b4;
+  --color-dim: #829c87;
   --color-signal: #73d978;
   --color-signal-mid: #0f9648;
   --color-signal-soft: rgb(115 217 120 / 0.18);
+  /* Foreground tokens for the image-led hero remain readable in either theme. */
+  --color-hero-foreground: #f4f3ed;
+  --color-hero-copy: rgb(244 243 237 / 0.86);
+  --color-hero-line: rgb(244 243 237 / 0.62);
+  --color-action-text: #021b0a;
 
   --font-display: var(--font-display-face), sans-serif;
   --font-body: var(--font-body-face), sans-serif;
@@ -49,4 +54,22 @@
 :root {
   --color-signal: #73d978 !important;
   --color-signal-soft: rgb(115 217 120 / 0.18) !important;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-background: #f4f3ed;
+  --color-text: #021b0a;
+  --color-ink: #f4f3ed;
+  --color-ink-2: #f0efe8;
+  --color-ink-3: #e8e8df;
+  --color-line: rgb(2 27 10 / 0.14);
+  --color-line-strong: rgb(2 27 10 / 0.28);
+  --color-bone: #021b0a;
+  --color-mute: #34523f;
+  --color-dim: #53705c;
+  --color-hero-foreground: #f4f3ed;
+  --color-hero-copy: rgb(244 243 237 / 0.86);
+  --color-hero-line: rgb(244 243 237 / 0.62);
+  --color-action-text: #021b0a;
 }

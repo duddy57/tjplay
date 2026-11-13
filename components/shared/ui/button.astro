@@ -28,7 +28,7 @@ const {
 } = Astro.props;
 
 const variants: Record<Variant, { base: string; fill: string }> = {
-  signal: { base: 'bg-signal text-ink', fill: 'bg-bone' },
+  signal: { base: 'bg-signal text-[var(--color-action-text)]', fill: 'bg-bone' },
   bone: { base: 'bg-bone text-ink', fill: 'bg-signal' },
   outline: { base: 'border border-line-strong text-bone hover:text-ink', fill: 'bg-bone' },
 };

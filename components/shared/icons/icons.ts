@@ -22,6 +22,8 @@ import shieldCheck from '@phosphor-icons/core/regular/shield-check.svg?raw';
 import sparkle from '@phosphor-icons/core/regular/sparkle.svg?raw';
 import x from '@phosphor-icons/core/regular/x.svg?raw';
 import xLogo from '@phosphor-icons/core/regular/x-logo.svg?raw';
+import sunIcon from '@phosphor-icons/core/regular/sun.svg?raw';
+import moonIcon from '@phosphor-icons/core/regular/moon.svg?raw';
 
 export const icons = {
   'arrow-down': arrowDown,
@@ -33,6 +35,8 @@ export const icons = {
   chat: chatsCircle,
   check,
   cloud,
+  'sun-icon': sunIcon,
+  'moon-icon': moonIcon,
   'credit-card': creditCard,
   database,
   email: envelopeSimple,

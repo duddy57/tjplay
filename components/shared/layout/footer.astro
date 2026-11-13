@@ -1,5 +1,6 @@
 ---
 import { iptvBrand, iptvWhatsAppHref } from '@/data/iptv';
+import Icon from '@/components/shared/icons/icon.astro';
 ---
 
 <footer class="border-t border-line bg-ink-2 py-8 sm:py-10 md:py-14">
@@ -13,6 +14,57 @@ import { iptvBrand, iptvWhatsAppHref } from '@/data/iptv';
       <a href="#planos" class="text-mute transition-colors hover:text-bone">Planos</a>
       <a href="#contato" class="text-mute transition-colors hover:text-bone">Atendimento</a>
       <a href={iptvWhatsAppHref} target="_blank" rel="noopener noreferrer" class="font-medium text-signal-mid transition-colors hover:text-bone">WhatsApp ↗</a>
+      <button
+        type="button"
+        class="theme-toggle inline-flex items-center gap-2 rounded-full border border-line-strong px-3 py-2 text-xs font-medium text-mute transition-colors hover:border-bone hover:text-bone"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Ativar modo claro">
+        <span class="theme-toggle-icon inline-flex size-4" aria-hidden="true">
+          <Icon name="sun-icon" class="theme-toggle-sun" />
+          <Icon name="moon-icon" class="theme-toggle-moon" />
+        </span>
+        <span data-theme-label>Modo claro</span>
+      </button>
     </div>
   </div>
 </footer>
+
+<script>
+  const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const themeLabel = themeToggle?.querySelector<HTMLElement>('[data-theme-label]');
+  const sunIcon = themeToggle?.querySelector<HTMLElement>('.theme-toggle-sun');
+  const moonIcon = themeToggle?.querySelector<HTMLElement>('.theme-toggle-moon');
+  const root = document.documentElement;
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+
+  if (themeToggle && themeLabel && sunIcon && moonIcon) {
+    const syncThemeToggle = () => {
+      const isLight = root.dataset.theme === 'light';
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.setAttribute('aria-label', isLight ? 'Ativar modo escuro' : 'Ativar modo claro');
+      themeLabel.textContent = isLight ? 'Modo escuro' : 'Modo claro';
+      sunIcon.style.display = isLight ? 'none' : 'inline-block';
+      moonIcon.style.display = isLight ? 'inline-block' : 'none';
+      themeColor?.setAttribute('content', isLight ? '#f4f3ed' : '#021b0a');
+    };
+
+    syncThemeToggle();
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      root.dataset.theme = nextTheme;
+      try {
+        localStorage.setItem('theme', nextTheme);
+      } catch {
+        // Storage can be unavailable in private or restricted browsing contexts.
+      }
+      syncThemeToggle();
+    });
+  }
+</script>
+
+<style>
+  :global(.theme-toggle-moon) {
+    display: none;
+  }
+</style>

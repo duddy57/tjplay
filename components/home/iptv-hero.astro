@@ -7,27 +7,25 @@ import { iptvHero, iptvWhatsAppHref } from '@/data/iptv';
 ---
 
 <section
-  class="relative overflow-hidden pt-36 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32"
+  class="iptv-hero relative overflow-hidden pt-36 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32"
   aria-labelledby="iptv-hero-title">
   <div class="iptv-hero-background" aria-hidden="true">
     <Image src={heroBackground} alt="" class="iptv-hero-background-image" loading="eager" />
-    <!-- <div class="iptv-hero-background-overlay"></div> -->
+    <div class="iptv-hero-background-overlay"></div>
   </div>
   <div class="shell relative z-10 grid items-end gap-14 lg:grid-cols-12">
     <div class="lg:col-span-8" data-intro>
-      <p class="font-mono text-label text-signal-mid uppercase tracking-[0.14em]">{iptvHero.eyebrow}</p>
+      <p class="font-mono text-label text-signal uppercase tracking-[0.14em]">{iptvHero.eyebrow}</p>
       <h1
         id="iptv-hero-title"
-        class="mt-5 max-w-[9ch] whitespace-pre-line font-display text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] font-extrabold tracking-[-0.07em] text-[var(--color-background)]">
+        class="mt-5 max-w-[9ch] whitespace-pre-line font-display text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] font-extrabold tracking-[-0.07em] text-[var(--color-hero-foreground)]">
         {iptvHero.title}
       </h1>
-      <p class="iptv-hero-copy mt-8 max-w-[42ch] text-lead text-[color-mix(in_srgb,var(--color-background)_82%,transparent)]">
-        {iptvHero.body}
-      </p>
+      <p class="iptv-hero-copy mt-8 max-w-[42ch] text-lead text-[var(--color-hero-copy)]">{iptvHero.body}</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
         <Button label={iptvHero.primaryCta} href={iptvWhatsAppHref} target="_blank" rel="noopener noreferrer" />
         <a
-          class="iptv-hero-secondary rounded-full border border-[rgb(244_243_237/0.55)] px-5 py-3.5 text-sm font-medium text-[var(--color-background)] transition-colors hover:border-signal-mid hover:text-signal-mid"
+          class="iptv-hero-secondary rounded-full border border-[var(--color-hero-line)] px-5 py-3.5 text-sm font-medium text-[var(--color-hero-foreground)] transition-colors hover:border-signal hover:text-signal"
           href={iptvWhatsAppHref}
           target="_blank"
           rel="noopener noreferrer">
@@ -35,12 +33,12 @@ import { iptvHero, iptvWhatsAppHref } from '@/data/iptv';
         </a>
       </div>
     </div>
-    <div class="relative min-h-64 sm:min-h-72 lg:col-span-3 lg:min-h-[30rem]" data-reveal>
+    <div class="relative min-h-64 sm:min-h-72 lg:col-span-4 lg:col-start-9 lg:min-h-120" data-reveal>
       <div class="iptv-hero-mockup">
         <Image
           src={mockup}
           alt="Interface da TjIptv exibida em um laptop"
-          class="size-full object-contain object-right"
+          class="w-full max-w-none h-auto object-contain"
           loading="eager"
         />
       </div>
@@ -72,8 +70,8 @@ import { iptvHero, iptvWhatsAppHref } from '@/data/iptv';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.56) 45%, rgb(0 0 0 / 0.18) 100%),
-      linear-gradient(180deg, rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.55));
+      linear-gradient(90deg, rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.56) 45%, rgb(0 0 0 / 0.22) 100%),
+      linear-gradient(180deg, rgb(0 0 0 / 0.24), rgb(0 0 0 / 0.6));
   }
 
   .iptv-hero-copy {
@@ -88,27 +86,28 @@ import { iptvHero, iptvWhatsAppHref } from '@/data/iptv';
   .iptv-hero-mockup {
     position: relative;
     width: 135%;
-    height: 18rem;
-    margin-top: 1.5rem;
+    height: auto;
+    margin-top: 0;
     margin-left: auto;
     right: -5%;
   }
 
   @media (width < 30rem) {
     .iptv-hero-mockup {
-      width: 145%;
-      right: -14%;
+      width: 100%;
+      right: 0%;
     }
   }
 
   @media (width >= 64rem) {
     .iptv-hero-mockup {
       position: absolute;
-      top: -2rem;
-      right: -62%;
-      width: min(58vw, 56rem);
-      height: 34rem;
+      top: 50%;
+      right: 0;
+      width: min(180%, 56rem);
+      height: auto;
       margin: 0;
+      transform: translateY(-58%);
     }
   }
 </style>
