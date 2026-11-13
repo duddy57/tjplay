@@ -75,16 +75,6 @@ jobs:
                   --username "$REGISTRY_USER" \
                   --password-stdin
 
-              echo "Registry login concluído"
-
-              docker logout forgejo.sperium.net
-
-              printf "%s" "$REGISTRY_TOKEN" |
-              docker login forgejo.sperium.net \
-                --username duddy57 \
-                --password-stdin
-
-              docker push "$IMAGE_NAME:$SHORT_SHA"
 
               docker build \
                 -t "$IMAGE_NAME:latest" \
