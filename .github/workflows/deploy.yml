@@ -22,11 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Test Docker connection
-        run: |
-          docker version
-          docker info
-
       - name: Install Infisical CLI
         run: |
           curl -1sLf \
@@ -45,6 +40,7 @@ jobs:
 
           INFISICAL_TOKEN="$(
             infisical login \
+              --domain="$INFISICAL_DOMAIN" \
               --method=universal-auth \
               --client-id="$INFISICAL_CLIENT_ID" \
               --client-secret="$INFISICAL_CLIENT_SECRET" \
@@ -55,13 +51,20 @@ jobs:
           echo "::add-mask::$INFISICAL_TOKEN"
           echo "INFISICAL_TOKEN=$INFISICAL_TOKEN" >> "$GITHUB_ENV"
 
-          echo "Infisical authentication successful"
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
 
-      - name: Build and push Docker image
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Verify Buildx
+        run: docker buildx inspect --bootstrap
+
+      - name: Build and push multiarch image
         run: |
           set -euo pipefail
 
-          SHORT_SHA="$(echo "$GITHUB_SHA" | cut -c1-12)"
+          SHORT_SHA="${GITHUB_SHA::12}"
           export SHORT_SHA IMAGE_NAME
 
           infisical run \
@@ -75,14 +78,12 @@ jobs:
                   --username "$REGISTRY_USER" \
                   --password-stdin
 
-
-              docker build \
-                -t "$IMAGE_NAME:latest" \
-                -t "$IMAGE_NAME:$SHORT_SHA" \
+              docker buildx build \
+                --platform linux/amd64,linux/arm64 \
+                --tag "$IMAGE_NAME:latest" \
+                --tag "$IMAGE_NAME:$SHORT_SHA" \
+                --push \
                 .
-
-              docker push "$IMAGE_NAME:$SHORT_SHA"
-              docker push "$IMAGE_NAME:latest"
 
               docker logout forgejo.sperium.net
             '
